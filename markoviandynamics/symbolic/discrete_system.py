@@ -25,6 +25,12 @@ class SymbolicDiscreteSystem:
         # Equilibrium
         self._eq = sp.Matrix([sp.exp(-E / self.T) for E in self.E_i]) / self.Z
 
+        # Lambdified equilibrium probability distribution
+        self.equilibrium_lambdified = self._equilibrium_lambdify()
+
+    def _equilibrium_lambdify(self):
+        return sp.lambdify([self.T, *self.E_i], self._eq)
+
     def equilibrium(self, energies=None, temperature=None):
         """
         Return the equilibrium probability distribution.
@@ -40,16 +46,9 @@ class SymbolicDiscreteSystem:
 
         Returns
         -------
-        eq : (N, 1) array
+        expr : (N, 1) array
             Equilibrium probability distribution.
         """
-        if energies is not None and temperature is not None:
-            self_lambda = self.equilibrium_lambdified()
-            # *[energies[i, :] for i in range(energies.shape[0])]
-            # return self_lambda(temperature, *[energies[i, :] for i in range(energies.shape[0])])
-            # return self_lambda(temperature, *np.split(energies.T, self.N, axis=1))
-            return self_lambda(temperature, *energies)
-
         expr = self._eq
         if energies is not None:
             expr = expr.subs(dict(zip(self.E_i, np.array(energies))))
@@ -61,9 +60,6 @@ class SymbolicDiscreteSystem:
         if not expr.free_symbols:
             expr = np.array(expr).astype(np.float64)
         return expr
-
-    def equilibrium_lambdified(self):
-        return sp.lambdify([self.T, *self.E_i], self._eq)
 
 
 class SymbolicDiscreteSystemArrhenius(SymbolicDiscreteSystem):

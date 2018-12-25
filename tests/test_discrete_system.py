@@ -8,14 +8,14 @@ def test_discrete_system():
     energies = np.random.rand(30).reshape(3, 10)
     temperatures = np.random.rand(10)
 
-    eq = system.equilibrium(energies=energies, temperature=temperatures)
+    eq = system.equilibrium_lambdified(temperatures, *energies)
     for i in range(np.size(temperatures)):
-        assert_equal(eq[:,:,i], system.equilibrium(energies=energies[:,i], temperature=temperatures[i]))
+        assert_equal(eq[:,:,i], system.equilibrium_lambdified(temperatures[i], *energies[:,i]))
 
-    eq = system.equilibrium(energies=energies[:,0], temperature=temperatures)
+    eq = system.equilibrium_lambdified(temperatures, *energies[:,0])
     for i in range(np.size(temperatures)):
-        assert_equal(eq[:,:,i], system.equilibrium(energies=energies[:,0], temperature=temperatures[i]))
+        assert_equal(eq[:,:,i], system.equilibrium_lambdified(temperatures[i], *energies[:,0]))
 
-    eq = system.equilibrium(energies=energies, temperature=temperatures[0])
+    eq = system.equilibrium_lambdified(temperatures[0], *energies)
     for i in range(np.size(energies.shape[1])):
-        assert_equal(eq[:,:,i], system.equilibrium(energies=energies[:,i], temperature=temperatures[0]))
+        assert_equal(eq[:,:,i], system.equilibrium_lambdified(temperatures[0], *energies[:,i]))
