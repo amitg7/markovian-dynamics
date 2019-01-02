@@ -83,16 +83,16 @@ def eigensystem(a):
     -------
     U : (N, N) or (N, N, M) array
         The left eigenvectors.
-        If ``a`` is 2D: ``U[:,i]`` is the ``i``th left eigenvector.
-        If ``a`` is 3D: ``U[:,i,j]`` is the ``i``th left eigenvector of the ``j``th matrix ``a[:,:,j]``.
+        If ``a`` is 2D: ``U[:,i]`` is the i'th left eigenvector.
+        If ``a`` is 3D: ``U[:,i,j]`` is the i'th left eigenvector of the j'th matrix ``a[:,:,j]``.
     eigenvalues : (N,) or (N, M) array
         The eigenvalues.
-        If ``a`` is 2D: ``eigenvalues[i]`` is the ``i``th eigenvalue.
-        If ``a`` is 3D: ``eigenvalues[i]`` is the ``i``th eigenvalue of the ``j``th matrix ``a[:,:,j]``.
+        If ``a`` is 2D: ``eigenvalues[i]`` is the i'th eigenvalue.
+        If ``a`` is 3D: ``eigenvalues[i]`` is the i'th eigenvalue of the 'j'th matrix ``a[:,:,j]``.
     V : (N, N)  or (N, N, M) array
     The right eigenvectors.
-        If ``a`` is 2D: ``V[:,i]`` is the ``i``th right eigenvector.
-        If ``a`` is 3D: ``V[:,i,j]`` is the ``i``th right eigenvector of the ``j``th matrix ``a[:,:,j]``.
+        If ``a`` is 2D: ``V[:,i]`` is the i'th right eigenvector.
+        If ``a`` is 3D: ``V[:,i,j]`` is the i'th right eigenvector of the j'th matrix ``a[:,:,j]``.
     """
     if a.ndim == 3:
         return _eigensystem_nd(a)
@@ -192,7 +192,7 @@ def decompose(points, rate_matrix):
     coefficients of ``V[i, :]``.
 
     - If ``points`` and ``rate_matrix`` have the same number of dimensions, the result will have the same shape as
-      ``points`. The third axis of both of them, if exists, must be the same size.
+      ``points``. The third axis of both of them, if exists, must be the same size.
 
     - If ``points`` is 2-D and ``rate_matrix`` is 3-D, the results will be 3-D where the first two dimensions will be
       the same size as of ``points`` and the third dimension will be the same size as of ``rate_matrix``. In this case,
